@@ -14,10 +14,13 @@ const Post = require("./models/Post");
 
 dotenv.config();
 
+// Set strictQuery option
+mongoose.set('strictQuery', true); // or false, depending on your preference
+
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://post-it-heroku.herokuapp.com"],
+    origin: ["http://localhost:3000"],
   },
 });
 
@@ -26,7 +29,11 @@ io.on("connection", (socket) => socketServer(socket));
 
 mongoose.connect(
   process.env.MONGO_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+  },
   () => {
     console.log("MongoDB connected");
   }
