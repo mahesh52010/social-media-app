@@ -20,7 +20,7 @@ mongoose.set('strictQuery', true); // or false, depending on your preference
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: ["https://social-media-app-kjp7.onrender.com"],
   },
 });
 
